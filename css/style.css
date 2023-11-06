@@ -1,0 +1,36 @@
+header{
+    background-color: azure;
+    padding: 40px;
+}
+
+header h1{
+    color: rgb(102, 2, 102);
+}
+
+
+main{
+    margin: 30px;
+}
+
+main img{
+    height: 320px;
+}
+
+/* main p{
+    margin-bottom: 30px;
+} */
+
+h1{
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+
+footer{
+    background-color: azure;
+    align-items: center;
+    color: rgb(102, 2, 102);
+    font-size: 12pt;
+    text-align: center;
+    padding: 20px;
+}
