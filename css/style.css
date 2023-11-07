@@ -10,10 +10,12 @@ header h1{
 
 main{
     margin: 30px;
+    background-color: #F7F7DF;
 }
 
 main img{
     height: 320px;
+    border: black solid 2px;
 }
 
 /* main p{
