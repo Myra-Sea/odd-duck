@@ -30,6 +30,7 @@ const maxClicks = 25;
 //    SETTING UP THE OBJECTS TO BE DISPLAYED
 //=================================================
 
+let currentProjects = [];
 
 //Create constructor function
 function ProposedProject(name, src){
@@ -39,8 +40,8 @@ function ProposedProject(name, src){
     this.views = 0;
     this.clicks = 0;
 }
-ProposedProject.allProjects = [];
-ProposedProject.workingProjects = [];
+// ProposedProject.allProjects = [];
+// ProposedProject.workingProjects = [];
 
 //Create the list of 19 proposed projects by assigning the constructor to each.
 //Pass in their desired string labels and the paths to their respective images as strings since it will be placed in the HTML file where the img element expects a string.
@@ -65,7 +66,7 @@ let waterCan = new ProposedProject('Self Watering Can', './img/water-can.jpg');
 let wineGlass = new ProposedProject('Wine Glass', './img/wine-glass.jpg');
 
 //Create an array of all 19 proposed projects
-let projects = [suitcase, bananaCutter, bathroomDeviceHolder, boots, breakfastMaker, meatGum, chair, cthulhu, dogDuck, dragon, pens, petSweeper, scissors, shark, sweepBaby, tauntaun, unicorn, waterCan, wineGlass];
+let allProjects = [suitcase, bananaCutter, bathroomDeviceHolder, boots, breakfastMaker, meatGum, chair, cthulhu, dogDuck, dragon, pens, petSweeper, scissors, shark, sweepBaby, tauntaun, unicorn, waterCan, wineGlass];
 
 const projectsNames = ['suitcase', 'bananaCutter', 'bathroomDeviceHolder', 'boots', 'breakfastMaker', 'meatGum', 'chair', 'cthulhu', 'dogDuck', 'dragon', 'pens', 'petSweeper', 'scissors', 'shark', 'sweepBaby', 'tauntaun', 'unicorn', 'waterCan', 'wineGlass'];
 
@@ -75,7 +76,7 @@ const projectsNames = ['suitcase', 'bananaCutter', 'bathroomDeviceHolder', 'boot
 //  RANDOMIZING THE ARRAY LIST
 //====================================================
 
-shuffleArray(projects);
+// shuffleArray(currentProjects);
 
 //Using the Fisher-Yates shuffle algorithm
 function shuffleArray (array) {
@@ -149,16 +150,20 @@ function renderProjects(){
         rightImg.removeEventListener('click', handleRightProjectClick);
     }
 
+    if(currentProjects.length <= 2) {
+        currentProjects = allProjects.slice();
+        shuffleArray(currentProjects);
+    }
 
     //For performance reasons, it is better to remove from the end instead of the start of an array
     //.pop will choose the last item left in the array AND then remove it from the array after using it. Using that to set the final item to be firstProject and then removing it from the list is:
-    let firstProject = projects.pop();
+    let firstProject = currentProjects.pop();
 
     //With the removal of the previous last image, there is now a new final image. So let's choose that one to be secondProject and then remove it from the list
-    let secondProject = projects.pop();
+    let secondProject = currentProjects.pop();
 
     //And then grab the brand new final image remaining in the list, set it as thirdProject, and then remove it
-    let thirdProject = projects.pop();
+    let thirdProject = currentProjects.pop();
 
 
     //Now show that first proposed project in the lefthand image area
