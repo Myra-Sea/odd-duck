@@ -204,8 +204,54 @@ function renderResults(){
 }
 
 
+// function renderChart(){
+//     /* refer to Chart.js > Chart Types > Bar Chart:
+//   https://www.chartjs.org/docs/latest/charts/bar.html
+//   and refer to Chart.js > Getting Started > Getting Started:
+//   https://www.chartjs.org/docs/latest/getting-started/ */
+//   const data = {
+//     labels: goatNames,
+//     datasets: [{
+//       label: 'Likes',
+//       data: goatLikes,
+//       backgroundColor: [
+//         'rgba(255, 99, 132, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgb(255, 99, 132)'
+//       ],
+//       borderWidth: 1
+//     },
+//     {
+//       label: 'Views',
+//       data: goatViews,
+//       backgroundColor: [
+//         'rgba(255, 159, 64, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgb(255, 159, 64)'
+//       ],
+//       borderWidth: 1
+//     }]
+//   };
 
-//Below added as a particular coding quirk JB showed us during Lab 11 review on 11/6 as something that he likes to use
+//   const config = {
+//     type: 'bar',
+//     data: data,
+//     options: {
+//       scales: {
+//         y: {
+//           beginAtZero: true
+//         }
+//       }
+//     },
+//   };
+//   let canvasChart = document.getElementById('myChart');
+//   const myChart = new Chart(canvasChart, config);
+// }
+
+
+//Below added as a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use
 function startApp(){
     renderProjects();
 }
