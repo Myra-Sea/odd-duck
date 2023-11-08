@@ -27,6 +27,9 @@ h1{
     font-weight: bold;
 }
 
+div{
+    pointer-events:none;
+}
 
 footer{
     background-color: azure;
