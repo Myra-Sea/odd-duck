@@ -204,51 +204,69 @@ function renderResults(){
 }
 
 
-// function renderChart(){
-//     /* refer to Chart.js > Chart Types > Bar Chart:
-//   https://www.chartjs.org/docs/latest/charts/bar.html
-//   and refer to Chart.js > Getting Started > Getting Started:
-//   https://www.chartjs.org/docs/latest/getting-started/ */
-//   const data = {
-//     labels: goatNames,
-//     datasets: [{
-//       label: 'Likes',
-//       data: goatLikes,
-//       backgroundColor: [
-//         'rgba(255, 99, 132, 0.2)'
-//       ],
-//       borderColor: [
-//         'rgb(255, 99, 132)'
-//       ],
-//       borderWidth: 1
-//     },
-//     {
-//       label: 'Views',
-//       data: goatViews,
-//       backgroundColor: [
-//         'rgba(255, 159, 64, 0.2)'
-//       ],
-//       borderColor: [
-//         'rgb(255, 159, 64)'
-//       ],
-//       borderWidth: 1
-//     }]
-//   };
+//=================================================
+//   ADD CANVAS BAR CHART
+//=================================================
+function renderChart(){
+    const proposedProducts = [];
+    const productVotes = [];
+    const productViews = [];
 
-//   const config = {
-//     type: 'bar',
-//     data: data,
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     },
-//   };
-//   let canvasChart = document.getElementById('myChart');
-//   const myChart = new Chart(canvasChart, config);
-// }
+    for(let i=0; i<allProjects.length; i++){
+        const currentProject = allProjects[i];
+        const productCounter = currentProject.name;
+        const voteCounter = currentProject.clicks;
+        const viewCounter = currentProject.views;
+
+        proposedProducts.push(productCounter);
+        productVotes.push(voteCounter);
+        productViews.push(viewCounter);
+    } 
+
+    //   Basics of the code structure below was copied from https://www.chartjs.org/docs/latest/getting-started/    
+    //   as provided by the CodeFellows repo at https://github.com/codefellows/seattle-code-201d106/blob/main/class-12/demo/charts-click-tracker/index.html 
+  const data = {
+    labels: proposedProducts,
+    datasets: [{
+      label: 'Votes',
+      data: productVotes,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)'
+      ],
+      borderWidth: 1
+    },
+    {
+      label: 'Views',
+      data: productViews,
+      backgroundColor: [
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 159, 64)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  //Copied from https://www.chartjs.org/docs/latest/charts/bar.html
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  };
+
+  let canvasChart = document.getElementById('myChart');
+  const myChart = new Chart(canvasChart, config);
+}
 
 
 //Below added as a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use
