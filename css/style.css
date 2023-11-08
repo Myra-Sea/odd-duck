@@ -18,17 +18,32 @@ main img{
     border: black solid 2px;
 }
 
-/* main p{
-    margin-bottom: 30px;
-} */
+main p{
+    font-size: 14pt;
+    /* margin-bottom: 30px; */
+}
 
 h1{
     font-size: 16pt;
     font-weight: bold;
+    margin-top: 50px;
 }
 
 div{
-    pointer-events:none;
+    background-color: white;
+    color: rgb(186, 2, 2);
+    border: black solid 4px;
+    width: max-content;
+    height: max-content;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 5px;
+    /* pointer-events: none; */
+}
+
+ul{
+    font-size: 14pt;
 }
 
 footer{

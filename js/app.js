@@ -22,6 +22,9 @@ const ulElem = document.querySelector('ul');
 //=================================================
 //   SETTING UP THE CLICK COUNTER
 //=================================================
+let firstProject = null;
+let secondProject = null;
+let thirdProject = null;
 let clickCounter = 0;
 const maxClicks = 25;
 
@@ -40,8 +43,7 @@ function ProposedProject(name, src){
     this.views = 0;
     this.clicks = 0;
 }
-// ProposedProject.allProjects = [];
-// ProposedProject.workingProjects = [];
+
 
 //Create the list of 19 proposed projects by assigning the constructor to each.
 //Pass in their desired string labels and the paths to their respective images as strings since it will be placed in the HTML file where the img element expects a string.
@@ -89,52 +91,12 @@ function shuffleArray (array) {
 }
 
 
-//======================================================
-//  PICKING ONLY 3 IMAGES
-//======================================================
-
-
-
-function firstProject(){
-    
-    
-    //The above could have been written instead as
-    //for(let item of array){}
-    //  for(let projectName of productNames){
-    //  const projectInstance = new Project(projectName, `img/${projectName}.jpg`);
-    //  }
-}
-
-
-function secondProject(){
-    
-    
-    //The above could have been written instead as
-    //for(let item of array){}
-    //  for(let projectName of productNames){
-    //  const projectInstance = new Project(projectName, `img/${projectName}.jpg`);
-    //  }
-}
-
-function thirdProject(){
-    
-    
-    //The above could have been written instead as
-    //for(let item of array){}
-    //  for(let projectName of productNames){
-    //  const projectInstance = new Project(projectName, `img/${projectName}.jpg`);
-    //  }
-}
-
-
 
 //==================================================
 //    SHOW 3 IMAGES ON THE SCREEN
 //    THEN REMOVE THOSE FROM THE NEXT LIST
-//    + CONTROL THE NUMBER OF ROUNDS
+//  ALSO, LIMIT THE NUMBER OF ROUNDS TO 25 (IE. TO MAXCLICKS)
 //==================================================
-
-
 
 //Create a function so that the projects can show up on the user's screen
 function renderProjects(){
@@ -157,13 +119,13 @@ function renderProjects(){
 
     //For performance reasons, it is better to remove from the end instead of the start of an array
     //.pop will choose the last item left in the array AND then remove it from the array after using it. Using that to set the final item to be firstProject and then removing it from the list is:
-    let firstProject = currentProjects.pop();
+    firstProject = currentProjects.pop();
 
     //With the removal of the previous last image, there is now a new final image. So let's choose that one to be secondProject and then remove it from the list
-    let secondProject = currentProjects.pop();
+    secondProject = currentProjects.pop();
 
     //And then grab the brand new final image remaining in the list, set it as thirdProject, and then remove it
-    let thirdProject = currentProjects.pop();
+    thirdProject = currentProjects.pop();
 
 
     //Now show that first proposed project in the lefthand image area
@@ -172,6 +134,11 @@ function renderProjects(){
     middleImg.setAttribute('src', secondProject.src);
     //And show that third proposed project in the righthand image area
     rightImg.setAttribute('src', thirdProject.src);
+
+
+    firstProject.views += 1;
+    secondProject.views += 1;
+    thirdProject.views += 1;
 }
 
 
@@ -208,29 +175,13 @@ function handleRightProjectClick() {
     renderProjects();
 }
 
-leftImg.addEventListener('click', handleLeftProjectClick);
-middleImg.addEventListener('click', handleMiddleProjectClick);
-rightImg.addEventListener('click', handleRightProjectClick);
-
-
-//==================================================
-//   ENABLE THE VIEW RESULTS BUTTON
-//==================================================
-
-function renderResults(){
-    for(let i=0; i<ProposedProject.allProjects.length; i++) {
-        const currentProject = ProposedProject.allProjects[i];
-        const result = `${currentProject.name} was shown ${currentProject.views} times and received ${currentProject.clicks} votes.`;
-        const liElem = document.createElement('li');
-        ulElem.appendChild(liElem);
-        liElem.textContent = result;
-    }
-}
-
 function handleViewResultsClick() {
     renderResults();
 }
 
+leftImg.addEventListener('click', handleLeftProjectClick);
+middleImg.addEventListener('click', handleMiddleProjectClick);
+rightImg.addEventListener('click', handleRightProjectClick);
 
 
 //===================
@@ -239,8 +190,23 @@ renderProjects();
 //===================
 
 
+//==================================================
+//   ENABLE THE VIEW RESULTS BUTTON
+//==================================================
+function renderResults(){
+    for(let i=0; i<allProjects.length; i++) {
+        const currentProject = allProjects[i];
+        const result = `${currentProject.name} was shown ${currentProject.views} times and received ${currentProject.clicks} votes.`;
+        const liElem = document.createElement('li');
+        liElem.textContent = result;
+        ulElem.appendChild(liElem);
+    }
+}
+
+
+
+//Below added as a particular coding quirk JB showed us during Lab 11 review on 11/6 as something that he likes to use
 function startApp(){
-    // initEventListeners();
     renderProjects();
 }
 
