@@ -176,7 +176,11 @@ function handleRightProjectClick() {
 }
 
 function handleViewResultsClick() {
-    renderResults();
+    //Replace this
+    // renderResults();
+    //With this
+    renderChart();
+
 }
 
 leftImg.addEventListener('click', handleLeftProjectClick);
@@ -268,7 +272,7 @@ function renderChart(){
   const myChart = new Chart(canvasChart, config);
 }
 
-renderChart();
+
 
 //Below added as a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use
 function startApp(){
