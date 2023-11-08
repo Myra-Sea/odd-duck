@@ -13,9 +13,9 @@ const rightImg = document.querySelector('section img:nth-child(3)');
 
 
 //=================================================
-//    ASSIGNING VARIABLES TO THE VIEW RESULTS DIV AREA
+//    ASSIGNING VARIABLES TO THE VIEW RESULTS BUTTON AREA
 //=================================================
-const viewResults = document.querySelector('div');
+const viewResults = document.querySelector('button');
 const ulElem = document.querySelector('ul');
 
 
@@ -102,9 +102,9 @@ function shuffleArray (array) {
 function renderProjects(){
     //Check whether the clickCounter has reached the maximum number of 25
     if(clickCounter == maxClicks){
-        //Make the View Results div viewable
-        // handleViewResultsClick......
-        //If it has then make the View Results div clickable
+        //Make the View Results button viewable
+        viewResults.hidden = false;
+        //If it has then make the View Results button clickable
         viewResults.addEventListener('click', handleViewResultsClick);
         //Also when that max has been reached, disable the images from being clickable anymore
         leftImg.removeEventListener('click', handleLeftProjectClick);
