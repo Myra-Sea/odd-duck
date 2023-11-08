@@ -235,21 +235,21 @@ function renderChart(){
       label: 'Votes',
       data: productVotes,
       backgroundColor: [
-        'rgba(255, 99, 132, 0.2)'
+        'rgba(102, 2, 102, 0.2)'
       ],
       borderColor: [
-        'rgb(255, 99, 132)'
+        'rgb(75, 0, 130)'
       ],
-      borderWidth: 1
+      borderWidth: 2
     },
     {
       label: 'Views',
       data: productViews,
       backgroundColor: [
-        'rgba(255, 159, 64, 0.2)'
+        'rgba(240, 255, 255)'
       ],
       borderColor: [
-        'rgb(255, 159, 64)'
+        'rgb(30, 144, 255)'
       ],
       borderWidth: 1
     }]
