@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Righteous&display=swap" rel="stylesheet">
     <title>Odd Duck</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reset.css">
@@ -23,9 +26,9 @@
 
         <h1>Choose your favorite of these three:</h1>
         <section>
-            <img>
-            <img>
-            <img>
+            <img src="" alt="first choice">
+            <img src=""  alt="second choice">
+            <img src="" alt="third choice">
         </section>
 
         <section>
@@ -33,9 +36,17 @@
             <ul></ul>
         </section>
 
+        <!-- According to lecture, Canvas shows up best inside of a div so...-->
+        <div id="chartContainer">
+            <canvas height="90" id="myChart">Your browser doesn't support the canvas element</canvas>
+        </div>
+
     </main>
 
     <footer>&copy; Odd Duck Products</footer>
+
+    <!-- URL copied from chartjs.org -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 
     <script src="js/app.js"></script>
 </body>

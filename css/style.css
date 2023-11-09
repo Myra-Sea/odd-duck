@@ -14,12 +14,14 @@ header img{
 header h1{
     color: rgb(102, 2, 102);
     font-size: 40pt;
+    font-family: 'Great Vibes';
 }
 
 
 main{
-    margin: 30px;
+    margin: 10px;
     background-color: #F7F7DF;
+    padding: 20px;
 }
 
 main img{
@@ -53,6 +55,10 @@ button{
 
 ul{
     font-size: 14pt;
+}
+
+#chartContainer{
+    margin-top: 40px;
 }
 
 footer{
