@@ -166,7 +166,6 @@ function saveProjects() {
   //localStorage.setItem(duckStorageKey, JSON.stringify(allGoats));
 }
 
-
 // "Rehydrate" the locally stored data because JSON can't store methods
 //  Create a function that will put into a variable any projects saved in local storage
 function parseStoredProjects(locallyStoredJSON) {
@@ -181,7 +180,6 @@ function parseStoredProjects(locallyStoredJSON) {
  //Push it into the array of allProjects
  allProjects.push(projectInstance);
   }
-
 }
 
 //  Create a function that will load projects that were saved in local storage
@@ -200,7 +198,6 @@ function loadProjects() {
   // selector = new Selector(allProjects, 2);
 }
 
-// function parseStoredProjects(projectText) {
 
 
 
@@ -335,6 +332,9 @@ function renderChart(){
 
 loadProjects()
 
+
+
+
 //Below was a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use (calling all the initial start-up commands inside of a single function)
 // function startApp(){
 //     loadProjects();
@@ -342,9 +342,3 @@ loadProjects()
 // }
 
 // startApp();
-
-
-
-////////////////////
-//  Line 170 - Create a function that loads the saved projects from the local storage
-//  Line 331 - Call on that function
