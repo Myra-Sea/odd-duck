@@ -1,5 +1,12 @@
 'use strict';
 
+//===============================
+// LOCAL STORAGE VARIABLE
+//===============================
+const duckStorageKey = 'storage-key';
+let selector = null;
+
+
 //==================================================
 //    ASSIGNING VARIABLES TO THE IMAGE TAGS IN THE DOM
 //==================================================
@@ -36,7 +43,7 @@ const maxClicks = 25;
 let currentProjects = [];
 
 //Create constructor function
-function ProposedProject(name, src){
+function ProposedProject(name, src, views = 0, clicks = 0){
     //Add instances for each proposed project giving the property names and their values
     this.name = name;
     this.src = src;
@@ -142,6 +149,32 @@ function renderProjects(){
 }
 
 
+//=================================================
+//  SET UP LOCAL STORAGE
+//=================================================
+function saveProjects() {
+  const storageText = JSON.stringify(allProjects);
+  localStorage.setItem(duckStorageKey, storageText);
+}
+
+function loadProjects() {
+  const locallyStoredText = localStorage.getItem(duckStorageKey);
+  if (locallyStoredText === null) {
+    parseStoredProjects(locallyStoredText);
+  } else {
+    // initGoats();
+  }
+
+  selector = new Selector(allProjects, 2);
+}
+
+// function parseStoredProjects(projectText) {
+//   allProjects.length = 0;
+//   const objects = JSON.parse(projectText);
+//   for (let duckObject of objects) {
+
+//   }
+// }
 
 
 //==================================================
