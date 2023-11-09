@@ -76,6 +76,8 @@ let unicorn = new ProposedProject('Unicorn Meat', './img/unicorn.jpg');
 let waterCan = new ProposedProject('Self Watering Can', './img/water-can.jpg');
 let wineGlass = new ProposedProject('Wine Glass', './img/wine-glass.jpg');
 
+//Because the constructor function says that views & clicks start out at zero, it isn't necessary to write zeros above. JavaScript would only need numbers written out if the view & click values to start with weren't zero.  That is what will happen later with the locally stored values used for tallying across multiple sessions!
+
 //Create an array of all 19 proposed projects
 let allProjects = [suitcase, bananaCutter, bathroomDeviceHolder, boots, breakfastMaker, meatGum, chair, cthulhu, dogDuck, dragon, pens, petSweeper, scissors, shark, sweepBaby, tauntaun, unicorn, waterCan, wineGlass];
 
@@ -109,16 +111,18 @@ function shuffleArray (array) {
 
 //Create a function so that the projects can show up on the user's screen
 function renderProjects(){
-    //Check whether the clickCounter has reached the maximum number of 25
+    //Check whether the clickCounter has reached the maximum number of 25 times
     if(clickCounter == maxClicks){
-        //Make the View Results button viewable
+        //If it has, then make the View Results button viewable
         viewResults.hidden = false;
-        //If it has then make the View Results button clickable
+        //and make the View Results button clickable
         viewResults.addEventListener('click', handleViewResultsClick);
         //Also when that max has been reached, disable the images from being clickable anymore
         leftImg.removeEventListener('click', handleLeftProjectClick);
         middleImg.removeEventListener('click', handleMiddleProjectClick);
         rightImg.removeEventListener('click', handleRightProjectClick);
+        //New for Lab 13: now also call on that function that saves the data to local storage
+        // saveProjects();
     }
 
     if(currentProjects.length <= 2) {
@@ -154,10 +158,12 @@ function renderProjects(){
 //=================================================
 //  SET UP LOCAL STORAGE
 //=================================================
+//  Set up a function to save the array of projects into local storage:
 function saveProjects() {
   const storageText = JSON.stringify(allProjects);
   localStorage.setItem(duckStorageKey, storageText);
 }
+
 
 function loadProjects() {
   const locallyStoredText = localStorage.getItem(duckStorageKey);
@@ -170,6 +176,7 @@ function loadProjects() {
   selector = new Selector(allProjects, 2);
 }
 
+// "Rehydrate" the locally stored data because JSON can't store methods
 // function parseStoredProjects(projectText) {
 // Clear out the allProjects array by setting its length to zero
 //   allProjects.length = 0;
@@ -178,11 +185,13 @@ function loadProjects() {
 // Loop thru each JavaScript object in local storage that represents a proposed Odd Duck project,
 //   for (let duckObject of objects) {
 // For each one, create a new variable that equals a new project to add to the list as a new ProposedProject
-//  const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks)
+//  const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks);
 //Push it into the array of allProjects
 //  allProjects.push(projectInstance)
 //   }
 // }
+
+//JSON doesn't store methods
 
 
 //==================================================
@@ -217,7 +226,7 @@ function handleRightProjectClick() {
 }
 
 function handleViewResultsClick() {
-    //Replace this
+    //To make the chart appear instead of the text list, replace this
     // renderResults();
     //With this
     renderChart();
