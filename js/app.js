@@ -1,5 +1,12 @@
 'use strict';
 
+//===============================
+// LOCAL STORAGE VARIABLE
+//===============================
+const duckStorageKey = 'storage-key';
+let selector = null;
+
+
 //==================================================
 //    ASSIGNING VARIABLES TO THE IMAGE TAGS IN THE DOM
 //==================================================
@@ -35,13 +42,15 @@ const maxClicks = 25;
 
 let currentProjects = [];
 
-//Create constructor function
-function ProposedProject(name, src){
+//Create constructor function with the ability to pass views and clicks into it
+function ProposedProject(name, src, views = 0, clicks = 0){
     //Add instances for each proposed project giving the property names and their values
     this.name = name;
     this.src = src;
-    this.views = 0;
-    this.clicks = 0;
+    //Adding the ability above for views to be added in for the Local Storage tally, necessitates that we change this.views = 0;    to instead be... 
+    this.views = views;
+    //Adding the ability for clicks to be added in for the Local Storage tally, means that we need to change this.clicks = 0;    to instead be...
+    this.clicks = clicks;
 }
 
 
@@ -66,6 +75,8 @@ let tauntaun = new ProposedProject('Start Wars Sleeping Bag', './img/tauntaun.jp
 let unicorn = new ProposedProject('Unicorn Meat', './img/unicorn.jpg');
 let waterCan = new ProposedProject('Self Watering Can', './img/water-can.jpg');
 let wineGlass = new ProposedProject('Wine Glass', './img/wine-glass.jpg');
+
+//Because the constructor function says that views & clicks start out at zero, it isn't necessary to write zeros above. JavaScript would only need numbers written out if the view & click values to start with weren't zero.  That is what will happen later with the locally stored values used for tallying across multiple sessions!
 
 //Create an array of all 19 proposed projects
 let allProjects = [suitcase, bananaCutter, bathroomDeviceHolder, boots, breakfastMaker, meatGum, chair, cthulhu, dogDuck, dragon, pens, petSweeper, scissors, shark, sweepBaby, tauntaun, unicorn, waterCan, wineGlass];
@@ -100,16 +111,18 @@ function shuffleArray (array) {
 
 //Create a function so that the projects can show up on the user's screen
 function renderProjects(){
-    //Check whether the clickCounter has reached the maximum number of 25
+    //Check whether the clickCounter has reached the maximum number of 25 times
     if(clickCounter == maxClicks){
-        //Make the View Results button viewable
+        //If it has, then make the View Results button viewable
         viewResults.hidden = false;
-        //If it has then make the View Results button clickable
+        //and make the View Results button clickable
         viewResults.addEventListener('click', handleViewResultsClick);
         //Also when that max has been reached, disable the images from being clickable anymore
         leftImg.removeEventListener('click', handleLeftProjectClick);
         middleImg.removeEventListener('click', handleMiddleProjectClick);
         rightImg.removeEventListener('click', handleRightProjectClick);
+        //New for Lab 13: now also call on that function that saves the data to local storage
+        saveProjects();
     }
 
     if(currentProjects.length <= 2) {
@@ -139,6 +152,50 @@ function renderProjects(){
     firstProject.views += 1;
     secondProject.views += 1;
     thirdProject.views += 1;
+}
+
+
+//=================================================
+//  SET UP LOCAL STORAGE FOR USE AFTER 25 VOTES HAVE BEEN TAKEN
+//=================================================
+//  Set up a function to save the array of projects into local storage:
+function saveProjects() {
+  const storageText = JSON.stringify(allProjects);
+  localStorage.setItem(duckStorageKey, storageText);
+  //As per the demo, if written using only one line, then it would be
+  //localStorage.setItem(duckStorageKey, JSON.stringify(allGoats));
+}
+
+// "Rehydrate" the locally stored data because JSON can't store methods
+//  Create a function that will put into a variable any projects saved in local storage
+function parseStoredProjects(locallyStoredJSON) {
+// Create a new variable that equals the parsed valued of the locally stored projects
+  const storedProjects = JSON.parse(locallyStoredJSON);
+//For extra safety against bugs, before continuing onward you can ENSURE that the location the parsed objects are about to be put inside of is empty by clearing out the allProjects array first, by setting its length to zero 
+  allProjects.length = 0;
+//Now that the destination is clear, loop thru each JavaScript object that represents a stored Odd Duck project inside of local storage:
+  for (let duckObject of storedProjects) {
+// For each one found, create a new variable that equals a new project to add to the list as a new ProposedProject
+ const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks);
+ //Push it into the array of allProjects
+ allProjects.push(projectInstance);
+  }
+}
+
+//  Create a function that will load projects that were saved in local storage
+function loadProjects() {
+  //Create a variable to hold the contents
+  const locallyStoredJSON = localStorage.getItem(duckStorageKey);
+  // if there are projects stored in local storage...
+  if (locallyStoredJSON) {
+    //...then restore the projects by running the parseStoredProjects function
+    parseStoredProjects(locallyStoredJSON);
+    //Or else start the voting from scratch
+  } else {
+    // initGoats();
+  }
+
+  // selector = new Selector(allProjects, 2);
 }
 
 
@@ -176,7 +233,7 @@ function handleRightProjectClick() {
 }
 
 function handleViewResultsClick() {
-    //Replace this
+    //To make the chart appear instead of the text list, replace this
     // renderResults();
     //With this
     renderChart();
@@ -273,10 +330,15 @@ function renderChart(){
 }
 
 
+loadProjects()
 
-//Below added as a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use
-function startApp(){
-    renderProjects();
-}
 
-startApp();
+
+
+//Below was a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use (calling all the initial start-up commands inside of a single function)
+// function startApp(){
+//     loadProjects();
+//     renderProjects();
+// }
+
+// startApp();
