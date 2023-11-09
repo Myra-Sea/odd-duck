@@ -122,7 +122,7 @@ function renderProjects(){
         middleImg.removeEventListener('click', handleMiddleProjectClick);
         rightImg.removeEventListener('click', handleRightProjectClick);
         //New for Lab 13: now also call on that function that saves the data to local storage
-        // saveProjects();
+        saveProjects();
     }
 
     if(currentProjects.length <= 2) {
@@ -156,42 +156,52 @@ function renderProjects(){
 
 
 //=================================================
-//  SET UP LOCAL STORAGE
+//  SET UP LOCAL STORAGE FOR USE AFTER 25 VOTES HAVE BEEN TAKEN
 //=================================================
 //  Set up a function to save the array of projects into local storage:
 function saveProjects() {
   const storageText = JSON.stringify(allProjects);
   localStorage.setItem(duckStorageKey, storageText);
+  //As per the demo, if written using only one line, then it would be
+  //localStorage.setItem(duckStorageKey, JSON.stringify(allGoats));
 }
 
 
+// "Rehydrate" the locally stored data because JSON can't store methods
+//  Create a function that will put into a variable any projects saved in local storage
+function parseStoredProjects(locallyStoredJSON) {
+// Create a new variable that equals the parsed valued of the locally stored projects
+  const storedProjects = JSON.parse(locallyStoredJSON);
+//For extra safety against bugs, before continuing onward you can ENSURE that the location the parsed objects are about to be put inside of is empty by clearing out the allProjects array first, by setting its length to zero 
+  allProjects.length = 0;
+//Now that the destination is clear, loop thru each JavaScript object that represents a stored Odd Duck project inside of local storage:
+  for (let duckObject of storedProjects) {
+// For each one found, create a new variable that equals a new project to add to the list as a new ProposedProject
+ const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks);
+ //Push it into the array of allProjects
+ allProjects.push(projectInstance);
+  }
+
+}
+
+//  Create a function that will load projects that were saved in local storage
 function loadProjects() {
-  const locallyStoredText = localStorage.getItem(duckStorageKey);
-  if (locallyStoredText === null) {
-    parseStoredProjects(locallyStoredText);
+  //Create a variable to hold the contents
+  const locallyStoredJSON = localStorage.getItem(duckStorageKey);
+  // if there are projects stored in local storage...
+  if (locallyStoredJSON) {
+    //...then restore the projects by running the parseStoredProjects function
+    parseStoredProjects(locallyStoredJSON);
+    //Or else start the voting from scratch
   } else {
     // initGoats();
   }
 
-  selector = new Selector(allProjects, 2);
+  // selector = new Selector(allProjects, 2);
 }
 
-// "Rehydrate" the locally stored data because JSON can't store methods
 // function parseStoredProjects(projectText) {
-// Clear out the allProjects array by setting its length to zero
-//   allProjects.length = 0;
-// Create a new variable that equals the parsed valued of projectText
-//   const objects = JSON.parse(projectText);
-// Loop thru each JavaScript object in local storage that represents a proposed Odd Duck project,
-//   for (let duckObject of objects) {
-// For each one, create a new variable that equals a new project to add to the list as a new ProposedProject
-//  const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks);
-//Push it into the array of allProjects
-//  allProjects.push(projectInstance)
-//   }
-// }
 
-//JSON doesn't store methods
 
 
 //==================================================
@@ -323,10 +333,18 @@ function renderChart(){
 }
 
 
+loadProjects()
 
-//Below added as a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use
-function startApp(){
-    renderProjects();
-}
+//Below was a particular coding quirk JB showed us during Lab 11 review on 11/7 as something that he likes to use (calling all the initial start-up commands inside of a single function)
+// function startApp(){
+//     loadProjects();
+//     renderProjects();
+// }
 
-startApp();
+// startApp();
+
+
+
+////////////////////
+//  Line 170 - Create a function that loads the saved projects from the local storage
+//  Line 331 - Call on that function
