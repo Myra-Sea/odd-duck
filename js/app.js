@@ -42,13 +42,15 @@ const maxClicks = 25;
 
 let currentProjects = [];
 
-//Create constructor function
+//Create constructor function with the ability to pass views and clicks into it
 function ProposedProject(name, src, views = 0, clicks = 0){
     //Add instances for each proposed project giving the property names and their values
     this.name = name;
     this.src = src;
-    this.views = 0;
-    this.clicks = 0;
+    //Adding the ability above for views to be added in for the Local Storage tally, necessitates that we change this.views = 0;    to instead be... 
+    this.views = views;
+    //Adding the ability for clicks to be added in for the Local Storage tally, means that we need to change this.clicks = 0;    to instead be...
+    this.clicks = clicks;
 }
 
 
@@ -169,10 +171,16 @@ function loadProjects() {
 }
 
 // function parseStoredProjects(projectText) {
+// Clear out the allProjects array by setting its length to zero
 //   allProjects.length = 0;
+// Create a new variable that equals the parsed valued of projectText
 //   const objects = JSON.parse(projectText);
+// Loop thru each JavaScript object in local storage that represents a proposed Odd Duck project,
 //   for (let duckObject of objects) {
-
+// For each one, create a new variable that equals a new project to add to the list as a new ProposedProject
+//  const projectInstance = new ProposedProject(duckObject.name, duckObject.src, duckObject.views, duckObject.clicks)
+//Push it into the array of allProjects
+//  allProjects.push(projectInstance)
 //   }
 // }
 
