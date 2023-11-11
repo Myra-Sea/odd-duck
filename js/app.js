@@ -191,9 +191,7 @@ function loadProjects() {
     //...then restore the projects by running the parseStoredProjects function
     parseStoredProjects(locallyStoredJSON);
     //Or else start the voting from scratch
-  } else {
-    // initGoats();
-  }
+  } 
 
   // selector = new Selector(allProjects, 2);
 }
